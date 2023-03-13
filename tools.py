@@ -34,6 +34,7 @@ def plot_count_histogram(counts: Dict) -> None:
         height = rect.get_height()
         plt.text(rect.get_x() + rect.get_width() / 2.0, height, f'{initial_counts[idx]:.3f}', ha='center', va='bottom')
 
+    ax.set_ylim(0,np.max(initial_counts)*1.2)
     ax.set_ylabel("Probability", size=18)
     fig.subplots_adjust(bottom=0.2)  # Increasing space below fig (in case of large states)
     plt.show()
