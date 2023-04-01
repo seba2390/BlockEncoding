@@ -34,7 +34,7 @@ def plot_count_histogram(counts: Dict) -> None:
         height = rect.get_height()
         plt.text(rect.get_x() + rect.get_width() / 2.0, height, f'{initial_counts[idx]:.3f}', ha='center', va='bottom')
 
-    ax.set_ylim(0,np.max(initial_counts)*1.2)
+    ax.set_ylim(0, np.max(initial_counts) * 1.2)
     ax.set_ylabel("Probability", size=18)
     fig.subplots_adjust(bottom=0.2)  # Increasing space below fig (in case of large states)
     plt.show()
@@ -82,5 +82,32 @@ def get_state_vector(counts: Dict) -> np.ndarray:
         state_vector += np.sqrt(probabilities[state]) * qubit_vector(state=state).flatten()
     return state_vector
 
+
+def check_symmetric(a: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
+    """
+    Checks if a given matrix is symmetric within a certain tolerance.
+
+    Parameters
+    ----------
+    a : array_like
+        The matrix to check for symmetry.
+    rtol : float, optional
+        The relative tolerance for the symmetry check. Default is 1e-5.
+    atol : float, optional
+        The absolute tolerance for the symmetry check. Default is 1e-8.
+
+    Returns
+    -------
+    bool
+        True if the matrix is symmetric within the specified tolerances, False otherwise.
+
+    Notes
+    -----
+    A matrix is symmetric if it is equal to its transpose. This function checks if the difference between the input matrix and its transpose is within the specified tolerances. If both the relative and absolute differences are less than or equal to their respective tolerances, the matrix is considered symmetric.
+
+    This function uses the `allclose` method from NumPy to compare the matrix and its transpose.
+    """
+
+    return np.allclose(a, a.T, rtol=rtol, atol=atol)
 
 
